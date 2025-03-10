@@ -1,5 +1,5 @@
 from dags.reddit_dag import extract
-from etls.reddit_etl import connect_reddit
+from etls.reddit_etl import connect_reddit, extract_posts
 from utils.constants import SECRET, CLIENT_ID
 
 

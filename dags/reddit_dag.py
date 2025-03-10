@@ -6,9 +6,10 @@ import sys
 from airflow.operators.python import PythonOperator
 from sqlalchemy import extract
 
-from pipelines.reddit_pipeline import reddit_pipeline
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))) )
+
+from pipelines.reddit_pipeline import reddit_pipeline
 
 default_args = {
     'owner': "Vivek",
