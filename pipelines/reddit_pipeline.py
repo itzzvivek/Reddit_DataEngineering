@@ -1,12 +1,20 @@
-from dags.reddit_dag import extract
-from etls.reddit_etl import connect_reddit, extract_posts
-from utils.constants import SECRET, CLIENT_ID
+import pandas as pd
+from airflow.example_dags.tutorial_dag import transform
+
+from etls.reddit_etl import connect_reddit, extract_posts, load_data_to_csv
+from utils.constants import SECRET, CLIENT_ID, OUTPUT_PATH
 
 
 def reddit_pipeline(file_name: str, subreddit: str, time_filter='day', limit=None):
-    #connection to reddit instance
+    # connecting to reddit instance
     instance = connect_reddit(CLIENT_ID, SECRET, 'Airscholar Agent')
     #exraction
-    post = extract_posts(instance, subreddit, time_filter, limit)
+    posts = extract_posts(instance, subreddit, time_filter, limit)
+    post_df = pd.DataFrame(posts)
     #transformation
+    post_df = transform(post_df)
     #loading to csv
+    file_path = f'{OUTPUT_PATH}/{file_name}.csv'
+    load_data_to_csv(post_df, file_path)
+
+    return file_path

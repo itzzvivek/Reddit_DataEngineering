@@ -4,8 +4,6 @@ import os
 import sys
 
 from airflow.operators.python import PythonOperator
-from sqlalchemy import extract
-
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))) )
 
@@ -35,5 +33,6 @@ extract = PythonOperator(
         'subreddit': 'dataengineering',
         'time_filter': 'day',
         'limit': 100
-    }
+    },
+    dag=dag
 )
