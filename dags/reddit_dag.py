@@ -11,15 +11,15 @@ from pipelines.reddit_pipeline import reddit_pipeline
 
 default_args = {
     'owner': "Vivek",
-    'start_date': datetime(2025, 10, 22)
+    'start_date': datetime(2024, 10, 22)
 }
 
 file_postfix = datetime.now().strftime("%Y%m%d")
 
 dag = DAG(
-    dag_id = "etl_reddit_pipline",
+    dag_id = "etl_reddit_pipeline",
     default_args=default_args,
-    schedule_interval='@daily',
+    schedule='@daily',
     catchup=False,
     tags=['reddit', 'etl', 'pipeline']
 )
